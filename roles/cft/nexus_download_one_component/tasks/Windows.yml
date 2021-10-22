@@ -1,0 +1,82 @@
+- set_fact:
+    component: 'adm20'
+    agent_tmp_path: 'C:\tmp\cft\{{ contour }}'
+    src_zip_file: '{{ component }}.zip'
+    src_zip_link: 'http://proxyp1.dmzp.local/dmzart1/repository/ProductReleases/CFT/{{ release }}/{{ nexus_build_version }}/{{ release }}-{{ nexus_build_version }}-{{ component }}.zip'
+
+- debug: msg="Contour {{ contour }}"
+- debug: msg="Source link {{src_zip_link}}"
+- debug: msg="agent_tmp_path {{ agent_tmp_path }}"
+- debug: msg="src_zip_file {{ src_zip_file }}"
+- debug: msg="host_temp_dir {{ windows_host_temp_dir }}"
+
+# создаём папку с временным хранением файлов
+- name: Create temp directory if it doesn't exists
+  win_file:
+    path: '{{ agent_tmp_path }}'
+    state: absent
+
+- name: Create temp directory if it doesn't exists
+  win_file:
+    path: '{{ agent_tmp_path }}'
+    state: directory
+
+# чистим папку
+#- win_command: del /Q {{ agent_tmp_path }}\*.*
+#  run_once: true
+
+- debug: msg='Get from nexus'
+- debug: msg='src {{ src_zip_link }}'
+- debug: msg='dest {{ agent_tmp_path }}/{{src_zip_file }}'
+
+## Проверка доступности Nexus
+#- name: Check Nexus avialiable
+#  win_uri:
+#    url: '{{ src_zip_link }}'
+#    method: GET
+#  retries: 3
+#  delay: 180
+#  register: result_GET_nexus
+#  until: result_GET_nexus | success
+#  ignore_errors: yes
+#
+## Остановка выполнения плейбука - Nexus недоступен
+#- fail:
+#    msg: Playbook is failed - Nexus unavailable after 3 attempt to GET it
+#  when: result_GET_nexus | failed
+
+# Получаем по ссылке из nexus дистрибутив (aser.zip), если Nexus доступен
+- name: Call procedure of taking files from storage
+  win_get_url:
+    url: '{{ src_zip_link }}'
+    dest: '{{ agent_tmp_path }}/{{ src_zip_file }}'
+    force: yes
+
+- name: Clean temp dir
+  win_file:
+    path: '{{ windows_host_temp_dir }}'
+    state: absent
+  ignore_errors: yes
+
+- name: Create temp dir
+  win_file:
+    path: '{{ windows_host_temp_dir }}'
+    state: directory
+
+# Распаковать
+- name: Unzip file
+  win_command: unzip {{ agent_tmp_path }}/{{ src_zip_file }} -d {{ windows_host_temp_dir }}
+  run_once: true
+
+# Запуск Admin 2.0 для получения patch.zip из сборки и его последующего deploy на схему
+- name: Deploy with A2
+  win_psexec:
+    command: cmd /c c:\eclipse\deploy.bat {{ windows_host_temp_dir }} {{ oracle_db_password_ibs }} {{ liquibase.oracle_db_url }} {{ fsoffice_password }} >{{ agent_tmp_path }}\deploy_log.txt
+    executable: C:\Users\Developer\AppData\Local\Programs\sysinternals\PsExec64.exe
+    hostnames: [ 127.0.0.1 ]
+  run_once: true
+
+# Считать log процедуры установки Admin 2.0 с предыдущего шага
+- name: Get deploy log
+  win_shell: c:\eclipse\show_log.bat {{ agent_tmp_path }}\deploy_log.txt
+  run_once: true

@@ -1,0 +1,2 @@
+- include: "Windows.yml"
+  static: no

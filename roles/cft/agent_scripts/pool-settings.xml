@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<configuration>
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true" />
+        <setting name="cacheEnabled" value="true" />
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+
+    <environments default="none">
+        <environment id="standalone">
+            <transactionManager type="JDBC" />
+            <dataSource type="ru.cft.platform.connectivity.datasource.BoneCPFactory">
+                <property name="jdbcUrl" value="$server" />
+                <property name="schema" value="$owner" />
+                <property name="username" value="$username" />
+                <property name="password" value="$pass" />
+                <property name="idleMaxAgeInMinutes" value="10" />
+                <property name="idleConnectionTestPeriodInSeconds" value="600" />
+                <property name="minConnectionsPerPartition" value="0" />
+                <property name="maxConnectionsPerPartition" value="5" />
+                <property name="partitionCount" value="2" />
+                <property name="statisticsEnabled" value="false" />
+                <property name="poolAvailabilityThreshold" value="0" />
+                <property name="acquireIncrement" value="1"/>
+                <property name="disableJMX" value="true" />
+                <property name="connectionTestStatement" value="select 1 from dual" />
+            </dataSource>
+        </environment>
+    </environments>
+</configuration>

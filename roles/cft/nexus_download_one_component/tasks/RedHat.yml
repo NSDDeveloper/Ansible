@@ -1,0 +1,67 @@
+- set_fact:
+    agent_tmp_path: '/tmp/cft/{{ contour }}'
+    src_zip_file: '{{ component }}.zip'
+    src_zip_link: 'http://proxyp1.dmzp.local/dmzart1/repository/ProductReleases/CFT/{{ release }}/{{ nexus_build_version }}/{{ release }}-{{ nexus_build_version }}-{{ component }}.zip'
+
+- debug: msg="Contour {{ contour }}"
+- debug: msg="Source link {{src_zip_link}}"
+- debug: msg="agent_tmp_path {{ agent_tmp_path }}"
+- debug: msg="src_zip_file {{ src_zip_file }}"
+- debug: msg="host_temp_dir {{ linux_host_temp_dir }}"
+
+# создаём папку с временным хранением файлов
+- name: Create temp directory if it doesn't exists
+  file:
+    path: '{{ agent_tmp_path }}'
+    state: directory
+
+# чистим папку
+- raw: rm -rf {{ agent_tmp_path }}/*
+  run_once: true
+
+- debug: msg='Get from nexus'
+- debug: msg='src {{ src_zip_link }}'
+- debug: msg='dest {{ agent_tmp_path }}/{{src_zip_file }}'
+
+# Проверка доступности Nexus
+- name: Check Nexus avialiable
+  uri:
+    url: '{{ src_zip_link }}'
+    method: GET
+  retries: 3
+  delay: 180
+  register: result_GET_nexus
+  until: result_GET_nexus | success
+  ignore_errors: yes
+
+# Отправка E-mail сообщения, если Nexus недоступен
+#- include: ../roles/aser_nexus_fail_notification/tasks/main.yml
+#  when: result_GET_nexus.status != 200
+
+# Остановка выполнения плейбука - Nexus недоступен
+- fail:
+    msg: Playbook is failed - Nexus unavailable after 3 attempt to GET it
+  when: result_GET_nexus | failed
+
+# Получаем по ссылке из nexus дистрибутив (aser.zip), если Nexus доступен
+- name: Call procedure of taking files from storage
+  get_url:
+    url: '{{ src_zip_link }}'
+    dest: '{{ agent_tmp_path }}/{{ src_zip_file }}'
+    force: yes
+
+- name: Clean temp dir
+  file:
+    path: '{{ linux_host_temp_dir }}'
+    state: absent
+  ignore_errors: yes
+
+- name: Create temp dir
+  file:
+    path: '{{ linux_host_temp_dir }}'
+    state: directory
+
+# Распаковать
+- name: Unzip file (raw)
+  raw: unzip {{ agent_tmp_path }}/{{ src_zip_file }} -d {{ linux_host_temp_dir }}
+  run_once: true
