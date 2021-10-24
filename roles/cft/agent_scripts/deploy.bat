@@ -42,7 +42,7 @@ set conv_file=%files_dir%\Source\IBSO\setup\%r2%\convert.sql
 set distr_dir=%files_dir%\Source\IBSO\setup\%r2%\DISTR
 
 echo.
-echo  --- янупюмемхе PATCH.ZIP --- %r1% - %r2%
+echo  --- п║п·п╔п═п░п²п∙п²п≤п∙ PATCH.ZIP --- %r1% - %r2%
 echo.
 "C:\eclipse\IDE-latest\cft-platform-ide\eclipsec.exe" -clean -nosplash -nl ru_RU -application ru.cft.platform.team.Patch ^
 -filePath "%files_dir%\patch.zip" ^
@@ -51,24 +51,24 @@ echo.
 -branch "%r2%" -branchTarget "%r1%" ^
 -project "Source/IBSO" --launcher.suppressErrors
 echo.
-echo  --- янупюмемхе PATCH.ZIP --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п║п·п╔п═п░п²п∙п²п≤п∙ PATCH.ZIP --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\licence.sql
-echo  --- опнбепйю мюкхвхъ деиярбсчыеи кхжемгхх мю дхярпхасрхбмсч вюярэ жтр --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п²п░п⌡п≤п╖п≤п╞ п■п∙п≥п║п╒п▓пёп╝п╘п∙п≥ п⌡п≤п╕п∙п²п≈п≤п≤ п²п░ п■п≤п║п╒п═п≤п▒пёп╒п≤п▓п²пёп╝ п╖п░п║п╒п╛ п╕п╓п╒ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\fio.sql
-echo  --- опнбепйю пюанрняонянамнярх FIO --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п═п░п▒п·п╒п·п║п÷п·п║п·п▒п²п·п║п╒п≤ FIO --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 
 set DD_LVL=0
 if not exist %distr_dir%\inst_distr.bat goto deploy_local
 echo.
-echo  --- DEPLOY1 хг дхярпхасрхбмшу намнбкемхи ---
+echo  --- DEPLOY1 п≤п≈ п■п≤п║п╒п═п≤п▒пёп╒п≤п▓п²п╚п╔ п·п▒п²п·п▓п⌡п∙п²п≤п≥ ---
 echo.
-echo ОНДЙКЧВЕМХЕ Й ЯЕРЕБНИ ОЮОЙЕ \\fsoffice.nsd.ru\depo
+echo п©п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨ я│п╣я┌п╣п╡п╬п╧ п©п╟п©п╨п╣ \\fsoffice.nsd.ru\depo
 net use \\fsoffice.nsd.ru\depo %pwd_fs% /user:ta_cft_developer@nsd.ru
 if not %ERRORLEVEL% equ 0 goto end
 copy /Y c:\eclipse\deploy_zip.bat %distr_dir%
@@ -77,7 +77,7 @@ cd %distr_dir%
 call inst_distr.bat %srv% %pwd%
 cd %last_dir%
 echo.
-echo  --- DEPLOY1 хг дхярпхасрхбмшу намнбкемхи --- ЙНД БНГБПЮРЮ %DD_LVL%
+echo  --- DEPLOY1 п≤п≈ п■п≤п║п╒п═п≤п▒пёп╒п≤п▓п²п╚п╔ п·п▒п²п·п▓п⌡п∙п²п≤п≥ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %DD_LVL%
 set ERRORLEVEL=%DD_LVL%
 if not %ERRORLEVEL% equ 0 if not exist %conv_file% goto end
 
@@ -90,12 +90,12 @@ echo.
 -poolconfig "C:\eclipse\pool-settings.xml" -log %files_dir%\deploy%log_name% ^
 --launcher.suppressErrors
 echo.
-echo  --- DEPLOY1 PATCH.ZIP --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- DEPLOY1 PATCH.ZIP --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 if not %ERRORLEVEL% equ 0 if not exist %conv_file% goto end
 set ERRLEV=%ERRORLEVEL%
 
 echo.
-echo  --- сдюкемхе щкелемрнб ---
+echo  --- пёп■п░п⌡п∙п²п≤п∙ п╜п⌡п∙п°п∙п²п╒п·п▓ ---
 echo.
 if exist "%files_dir%\patch_delete.pck" "C:\eclipse\IDE-latest\cft-platform-ide\eclipsec.exe" -clean -nosplash -nl ru_RU ^
 -application ru.cft.platform.deployment.bootstrap.Deployment ^
@@ -103,21 +103,21 @@ if exist "%files_dir%\patch_delete.pck" "C:\eclipse\IDE-latest\cft-platform-ide\
 -poolconfig "C:\eclipse\pool-settings.xml" -log %files_dir%\delete%log_name% ^
 --launcher.suppressErrors
 echo.
-echo  --- сдюкемхе щкелемрнб --- ЙНД БНГБПЮРЮ %ERRORLEVEL% (ХЦМНПХПСЕРЯЪ)
+echo  --- пёп■п░п⌡п∙п²п≤п∙ п╜п⌡п∙п°п∙п²п╒п·п▓ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL% (п╦пЁп╫п╬я─п╦я─я┐п╣я┌я│я▐)
 
 if not exist %fio_dir% goto conv
 echo.
-echo  --- йнохпнбюмхе тюикнб хлонпрю мю яепбеп ---
+echo  --- п п·п÷п≤п═п·п▓п░п²п≤п∙ п╓п░п≥п⌡п·п▓ п≤п°п÷п·п═п╒п░ п²п░ п║п∙п═п▓п∙п═ ---
 echo.
 cscript //B C:\eclipse\oxch.vbs %srv% %pwd% %files_dir% %fio_dir%
 type %files_dir%\oxch.log
 echo.
-echo  --- йнохпнбюмхе тюикнб хлонпрю мю яепбеп --- ГЮБЕПЬЕМН
+echo  --- п п·п÷п≤п═п·п▓п░п²п≤п∙ п╓п░п≥п⌡п·п▓ п≤п°п÷п·п═п╒п░ п²п░ п║п∙п═п▓п∙п═ --- п╥п╟п╡п╣я─я┬п╣п╫п╬
 
 :conv
 if not exist %conv_file% goto ver
 echo.
-echo  --- бшонкмемхе ноепюжхи йнмбепрюжхх ---
+echo  --- п▓п╚п÷п·п⌡п²п∙п²п≤п∙ п·п÷п∙п═п░п╕п≤п≥ п п·п²п▓п∙п═п╒п░п╕п≤п≤ ---
 echo.
 set sc=%files_dir%\conv.sql
 echo declare l_debug_name varchar2(128); >%sc%
@@ -142,18 +142,18 @@ type %files_dir%\conv.log
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\recomp.sql
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\c_obj.sql
 echo.
-echo  --- бшонкмемхе ноепюжхи йнмбепрюжхх --- ГЮБЕПЬЕМН
+echo  --- п▓п╚п÷п·п⌡п²п∙п²п≤п∙ п·п÷п∙п═п░п╕п≤п≥ п п·п²п▓п∙п═п╒п░п╕п≤п≤ --- п╥п╟п╡п╣я─я┬п╣п╫п╬
 
 if not %DD_LVL% equ 0 (
 set DD_LVL=0
 echo.
-echo  --- DEPLOY2 хг дхярпхасрхбмшу намнбкемхи ---
+echo  --- DEPLOY2 п≤п≈ п■п≤п║п╒п═п≤п▒пёп╒п≤п▓п²п╚п╔ п·п▒п²п·п▓п⌡п∙п²п≤п≥ ---
 echo.
 cd %distr_dir%
 call inst_distr.bat %srv% %pwd%
 cd %last_dir%
 echo.
-echo  --- DEPLOY2 хг дхярпхасрхбмшу намнбкемхи --- ЙНД БНГБПЮРЮ %DD_LVL%
+echo  --- DEPLOY2 п≤п≈ п■п≤п║п╒п═п≤п▒пёп╒п≤п▓п²п╚п╔ п·п▒п²п·п▓п⌡п∙п²п≤п≥ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %DD_LVL%
 set ERRORLEVEL=%DD_LVL%
 if not %ERRORLEVEL% equ 0 goto end
 set DD_LVL=1
@@ -168,13 +168,13 @@ echo.
 -poolconfig "C:\eclipse\pool-settings.xml" -log %files_dir%\deploy%log_name% ^
 --launcher.suppressErrors
 echo.
-echo  --- DEPLOY2 PATCH.ZIP --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- DEPLOY2 PATCH.ZIP --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 if not %ERRORLEVEL% equ 0 goto end
 )
 
 :ver
 echo.
-echo  --- сярюмнбйю мнлепю бепяхх --- %build_no%
+echo  --- пёп║п╒п░п²п·п▓п п░ п²п·п°п∙п═п░ п▓п∙п═п║п≤п≤ --- %build_no%
 
 set n=0
 :bstart
@@ -190,35 +190,35 @@ if not %sm% equ . goto bstart
 set /a bld=bld-1
 echo call data_from_cft.ver_cft.Set_Ver('ARM_VER=6.0.120.03;RELEASE=%r2:~1,2%;PATCH=%r2:~-1%;MODIFY=%bld%;SET=+;DATEASSEMBLY=%date%;TIMEASSEMBLY=%time:~0,5%;SUCCESS=1'); | sqlplus ibs/%pwd%@%srv%
 
-echo  --- опнбепйх оняке сярюмнбйх ---
+echo  --- п÷п═п·п▓п∙п═п п≤ п÷п·п║п⌡п∙ пёп║п╒п░п²п·п▓п п≤ ---
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\xmlparser.sql
-echo  --- опнбепйю пюанрняонянамнярх ахакхнрейх XMLPARSER --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п═п░п▒п·п╒п·п║п÷п·п║п·п▒п²п·п║п╒п≤ п▒п≤п▒п⌡п≤п·п╒п∙п п≤ XMLPARSER --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\webpdf.sql
-echo  --- опнбепйю днярсомнярх яепбхяю WEBPDF --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п■п·п║п╒пёп÷п²п·п║п╒п≤ п║п∙п═п▓п≤п║п░ WEBPDF --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\gis_gmp.sql
-echo  --- опнбепйю пюанрняонянамнярх напюанрвхйнб яннаыемхи цхя цло --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п═п░п▒п·п╒п·п║п÷п·п║п·п▒п²п·п║п╒п≤ п·п▒п═п░п▒п·п╒п╖п≤п п·п▓ п║п·п·п▒п╘п∙п²п≤п≥ п⌠п≤п║ п⌠п°п÷ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\fns.sql
-echo  --- опнбепйю пюанрняонянамнярх напюанрвхйнб яннаыемхи тмя --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п═п░п▒п·п╒п·п║п÷п·п║п·п▒п²п·п║п╒п≤ п·п▒п═п░п▒п·п╒п╖п≤п п·п▓ п║п·п·п▒п╘п∙п²п≤п≥ п╓п²п║ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\soa.sql
-echo  --- опнбепйю нрясрярбхъ гюбхяьху яннаыемхи б нвепедъу ьхмш --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п·п╒п║пёп╒п║п╒п▓п≤п╞ п≈п░п▓п≤п║п╗п≤п╔ п║п·п·п▒п╘п∙п²п≤п≥ п▓ п·п╖п∙п═п∙п■п╞п╔ п╗п≤п²п╚ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 
 if %srv:~0,2% equ t6 goto skip1
 if %srv:~0,3% equ dev goto skip1
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\reportsever.sql
-echo  --- опнбепйю мюкхвхъ яеяяхи нр яепбепю нрвернб --- ЙНД БНГБПЮРЮ %ERRORLEVEL%
+echo  --- п÷п═п·п▓п∙п═п п░ п²п░п⌡п≤п╖п≤п╞ п║п∙п║п║п≤п≥ п·п╒ п║п∙п═п▓п∙п═п░ п·п╒п╖п∙п╒п·п▓ --- п╨п╬п╢ п╡п╬п╥п╡я─п╟я┌п╟ %ERRORLEVEL%
 :skip1
 
 if not %ERRORLEVEL% equ 0 goto end
-echo  --- опнбепйх оняке сярюмнбйх сяоеьмн гюбепьемш ---
+echo  --- п÷п═п·п▓п∙п═п п≤ п÷п·п║п⌡п∙ пёп║п╒п░п²п·п▓п п≤ пёп║п÷п∙п╗п²п· п≈п░п▓п∙п═п╗п∙п²п╚ ---
 
 set ERRORLEVEL=0
 
