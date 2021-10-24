@@ -1,7 +1,7 @@
 rem *********************************************************
-rem Перекомпиляция инвалидных объектов системы
+rem РџРµСЂРµРєРѕРјРїРёР»СЏС†РёСЏ РёРЅРІР°Р»РёРґРЅС‹С… РѕР±СЉРµРєС‚РѕРІ СЃРёСЃС‚РµРјС‹
 rem (ALTER PACKAGE COMPILE BODY)
-rem Запускается из-под SQL*Plus
+rem Р—Р°РїСѓСЃРєР°РµС‚СЃСЏ РёР·-РїРѕРґ SQL*Plus
 rem *********************************************************
 set feedback off
 set heading off
@@ -28,11 +28,11 @@ select 'prompt *** '||object_type||' '||object_name||chr(10)
 spool off
 set termout on
 spool c_obj_act.log
-prompt _Протокол компиляции пакетов и представлений
+prompt _РџСЂРѕС‚РѕРєРѕР» РєРѕРјРїРёР»СЏС†РёРё РїР°РєРµС‚РѕРІ Рё РїСЂРµРґСЃС‚Р°РІР»РµРЅРёР№
 select 'Started  compiling packages and views- '||TO_CHAR(SYSDATE,'DD/MM/YY (HH24:MI:SS)') from dual;
 @c_obj_act
 select 'Finished compiling packages and views - '||TO_CHAR(SYSDATE,'DD/MM/YY (HH24:MI:SS)') from dual;
-prompt _Протокол компиляции записан в файл c_obj_act.log
+prompt _РџСЂРѕС‚РѕРєРѕР» РєРѕРјРїРёР»СЏС†РёРё Р·Р°РїРёСЃР°РЅ РІ С„Р°Р№Р» c_obj_act.log
 spool off
 host del c_obj_act.sql
 set feedback on
