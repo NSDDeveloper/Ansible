@@ -13,7 +13,7 @@ select  c.id
         object_type='VIEW' and 
         object_name=c.short_name and status = 'VALID'))
         and c.short_name not like '%_EXT'
-    and c.name not like '%(расширение)'
+    and c.name not like '%(СЂР°СЃС€РёСЂРµРЅРёРµ)'
   order by s.id, c.name;
 
 begin
