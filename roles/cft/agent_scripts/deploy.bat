@@ -78,8 +78,12 @@ call inst_distr.bat %srv% %pwd%
 cd %last_dir%
 echo.
 echo  --- DEPLOY1 ИЗ ДИСТРИБУТИВНЫХ ОБНОВЛЕНИЙ --- код возврата %DD_LVL%
+if not %DD_LVL% equ 0 (
+if not exist %conv_file% (
 set ERRORLEVEL=%DD_LVL%
-if not %ERRORLEVEL% equ 0 if not exist %conv_file% goto end
+goto end
+)
+)
 
 :deploy_local
 echo.
@@ -87,7 +91,7 @@ echo  --- DEPLOY1 PATCH.ZIP ---
 echo.
 "C:\eclipse\IDE-latest\cft-platform-ide\eclipsec.exe" -clean -nosplash -nl ru_RU -application ru.cft.platform.deployment.bootstrap.Deployment ^
 -deploy -server %srv% -owner IBS -username IBS -pass %pwd% -projectpath "%files_dir%\patch.zip" -data %files_dir%\workspace ^
--poolconfig "C:\eclipse\pool-settings.xml" -log %files_dir%\deploy%log_name% ^
+-log %files_dir%\deploy%log_name% ^
 --launcher.suppressErrors
 echo.
 echo  --- DEPLOY1 PATCH.ZIP --- код возврата %ERRORLEVEL%
@@ -100,7 +104,7 @@ echo.
 if exist "%files_dir%\patch_delete.pck" "C:\eclipse\IDE-latest\cft-platform-ide\eclipsec.exe" -clean -nosplash -nl ru_RU ^
 -application ru.cft.platform.deployment.bootstrap.Deployment ^
 -delete -server %srv% -owner IBS -username IBS -pass %pwd% -pckpath "%files_dir%\patch_delete.pck" -data %files_dir%\workspace ^
--poolconfig "C:\eclipse\pool-settings.xml" -log %files_dir%\delete%log_name% ^
+-log %files_dir%\delete%log_name% ^
 --launcher.suppressErrors
 echo.
 echo  --- УДАЛЕНИЕ ЭЛЕМЕНТОВ --- код возврата %ERRORLEVEL% (игнорируется)
@@ -154,8 +158,10 @@ call inst_distr.bat %srv% %pwd%
 cd %last_dir%
 echo.
 echo  --- DEPLOY2 ИЗ ДИСТРИБУТИВНЫХ ОБНОВЛЕНИЙ --- код возврата %DD_LVL%
+if not %DD_LVL% equ 0 (
 set ERRORLEVEL=%DD_LVL%
-if not %ERRORLEVEL% equ 0 goto end
+goto end
+)
 set DD_LVL=1
 )
 
@@ -165,7 +171,7 @@ echo  --- DEPLOY2 PATCH.ZIP ---
 echo.
 "C:\eclipse\IDE-latest\cft-platform-ide\eclipsec.exe" -clean -nosplash -nl ru_RU -application ru.cft.platform.deployment.bootstrap.Deployment ^
 -deploy -server %srv% -owner IBS -username IBS -pass %pwd% -projectpath "%files_dir%\patch.zip" -data %files_dir%\workspace ^
--poolconfig "C:\eclipse\pool-settings.xml" -log %files_dir%\deploy%log_name% ^
+-log %files_dir%\deploy%log_name% ^
 --launcher.suppressErrors
 echo.
 echo  --- DEPLOY2 PATCH.ZIP --- код возврата %ERRORLEVEL%
@@ -205,6 +211,10 @@ echo  --- ПРОВЕРКА РАБОТОСПОСОБНОСТИ ОБРАБОТЧИ
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\fns.sql
 echo  --- ПРОВЕРКА РАБОТОСПОСОБНОСТИ ОБРАБОТЧИКОВ СООБЩЕНИЙ ФНС --- код возврата %ERRORLEVEL%
+
+if not %ERRORLEVEL% equ 0 goto end
+sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\smev3.sql
+echo  --- ПРОВЕРКА РАБОТОСПОСОБНОСТИ ОБРАБОТЧИКОВ СООБЩЕНИЙ SMEV3 --- код возврата %ERRORLEVEL%
 
 if not %ERRORLEVEL% equ 0 goto end
 sqlplus ibs/%pwd%@%srv% @c:\eclipse\cft-server-checks\soa.sql
